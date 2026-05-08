@@ -2,7 +2,7 @@
 #include<fstream>
 using namespace std;
 
-int vec[100], matrix[100][100];
+int vec[100], matrix[10][10];
 int vec_length = 0, matrix_length1 = 0, matrix_length2 = 0;
 
 void matrix_data(){
@@ -19,7 +19,27 @@ void matrix_data(){
     mat.close();
 }
 
+void matrix_to_vector(){
+    int n=0;
 
+    for(int i=0; i<matrix_length1; i++){
+        for(int j=0; j<matrix_length2; j++){
+            vec[n] = matrix[i][j];
+            n++;
+        }
+    }
+}
+
+void vector_to_matrix(){
+    int n=0;
+
+    for(int i=0; i<matrix_length1; i++){
+        for(int j=0; j<matrix_length2; j++){
+            matrix[i][j] = vec[n];
+            n++;
+        }
+    }
+}
 
 void vector_data(){
     fstream vek("vek.txt");
@@ -35,7 +55,7 @@ void vector_data(){
     vek.close();
 }
 
-void bubble_sort(){
+void bubble_sort(int vec_length){
     for(int i=0; i<vec_length-1; i++){
         for(int j=0; j<vec_length-i-1; j++){
             if(vec[j]>vec[j+1]){
@@ -43,6 +63,12 @@ void bubble_sort(){
             }
         }
     }
+}
+
+void bubble_sort_matrix(){
+    matrix_to_vector();
+    bubble_sort(matrix_length1*matrix_length2);
+    vector_to_matrix();
 }
 
 void print_vector(){
@@ -58,20 +84,28 @@ void print_matrix(){
         }
         cout<<endl;
     }
+    cout<<endl;
 }
 
 int main(){
     vector_data();
     matrix_data();
 
-    cout<<"original: ";
+    cout<<"original vector: ";
     print_vector();
 
-    bubble_sort();
+    bubble_sort(vec_length);
 
-    cout<<"modified: ";
+    cout<<"bubble sorted vector: ";
     print_vector();
 
+    cout<<"original matrix: "<<endl;
     print_matrix();
+
+    bubble_sort_matrix();
+
+    cout<<"bubble sorted matrix: "<<endl;
+    print_matrix();
+
     return 0;
 }
