@@ -1,28 +1,43 @@
 #include<iostream>
+#include<fstream>
 using namespace std;
-void bubble_sort(int vek[], int n){
-    for(int i=0; i<n-1; i++){
-        for(int j=0; j<n-i-1; j++){
+
+int vek[100];
+int vek_length = 0;
+
+void bubble_sort(int vek[], int vek_length){
+    for(int i=0; i<vek_length-1; i++){
+        for(int j=0; j<vek_length-i-1; j++){
             if(vek[j]>vek[j+1]){
                 swap(vek[j], vek[j+1]);
             }
         }
     }
 }
-void print(int vek[], int n){
-    for(int i=0; i<n; i++)
+void print_vek(int vek[], int vek_length){
+    for(int i=0; i<vek_length; i++)
         cout<<vek[i]<<" ";
     cout<<endl;
 }
+void matrix_data(){
+    fstream vektor("vek.txt");
+    int tmp,i=0;
+    while(vektor>>tmp){
+        vek[i]=tmp;
+        i++;
+    }
+    vek_length = i;
+    vektor.close();
+}
 int main(){
-    int vek[] = {30, 555, 2, 1, 8, 7};
-    int n=sizeof(vek) / sizeof(vek[0]);
+    matrix_data();
 
     cout<<"original: ";
-    print(vek, n);
+    print_vek(vek, vek_length);
+
+    bubble_sort(vek, vek_length);
 
     cout<<"modified: ";
-    bubble_sort(vek, n);
-    print(vek, n);
+    print_vek(vek, vek_length);
     return 0;
 }
