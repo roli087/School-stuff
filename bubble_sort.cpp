@@ -7,12 +7,15 @@ int vec_length = 0, matrix_length1 = 0, matrix_length2 = 0;
 
 void matrix_data(){
     fstream mat("matrix.txt");
+
     mat>>matrix_length1>>matrix_length2;
+
     for(int i=0; i<matrix_length1; i++){
         for(int j=0; j<matrix_length2; j++){
-            mat>>matrix[i][j]<<" ";
+            mat>>matrix[i][j];
         }
     }
+
     mat.close();
 }
 
@@ -21,11 +24,14 @@ void matrix_data(){
 void vector_data(){
     fstream vek("vek.txt");
     int tmp,i=0;
+
     while(vek>>tmp){
         vec[i]=tmp;
         i++;
     }
+
     vec_length = i;
+
     vek.close();
 }
 
@@ -48,7 +54,7 @@ void print_vector(){
 void print_matrix(){
     for(int i=0; i<matrix_length1; i++){
         for(int j=0; j<matrix_length2; j++){
-            cout<<matrix[i][j];
+            cout<<matrix[i][j]<<" ";
         }
         cout<<endl;
     }
@@ -64,7 +70,7 @@ int main(){
     bubble_sort();
 
     cout<<"modified: ";
-    print_vek();
+    print_vector();
 
     print_matrix();
     return 0;
