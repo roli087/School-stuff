@@ -1,2 +1,2 @@
-# School-stuff
+# bubble_sort
 Stuff for school
